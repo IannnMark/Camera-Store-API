@@ -24,7 +24,7 @@ app.listen(3000, () => {
 });
 
 app.use("/api/auth", authRoutes);
-app.user("/api/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 
 //middleware to handle possible errors
