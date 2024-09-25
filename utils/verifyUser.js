@@ -25,4 +25,3 @@ exports.authorizeRoles = (...roles) => {
         next()
     }
 }
-module.exports = verifyToken;
