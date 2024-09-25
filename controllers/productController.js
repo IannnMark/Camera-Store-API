@@ -44,3 +44,17 @@ exports.updateProduct = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.getAdminProducts = async (req, res, next) => {
+    try {
+        const products = await Product.find();
+
+        res.status(200).json({
+            success: true,
+
+            products,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
