@@ -58,3 +58,16 @@ exports.getAdminProducts = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.getProduct = async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return next(errorHandler(404, "Product not found"));
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        next(error);
+    }
+}
+
