@@ -51,7 +51,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         maxLength: [5, "Product stock cannot exceed 5 characters"],
         default: 0,
-    }
+    },
+    offer: {
+        type: Boolean,
+        required: true,
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);
