@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct } = require("../controllers/productController");
+const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct, getProducts } = require("../controllers/productController");
 const { verifyToken, authorizeRoles } = require("../utils/verifyUser");
 const router = express.Router();
 
@@ -9,5 +9,6 @@ router.delete("/admin/product/delete/:id", verifyToken, authorizeRoles("admin"),
 router.put("/admin/product/update/:id", verifyToken, authorizeRoles("admin"), updateProduct);
 router.get("/admin/products", verifyToken, authorizeRoles("admin"), getAdminProducts);
 router.get("/get/:id", getProduct);
+router.get("/get", getProducts);
 
 module.exports = router;
