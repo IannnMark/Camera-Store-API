@@ -87,8 +87,10 @@ exports.getProducts = async (req, res, next) => {
         const order = req.query.order || "desc";
 
         const products = await Product.find({
-            modelName: { $regex: searchTerm, $options: 'i' },
-            brand: { $regex: searchTerm, $options: 'i' },
+            $or: [
+                { modelName: { $regex: searchTerm, $options: 'i' } },
+                { brand: { $regex: searchTerm, $options: 'i' } }
+            ],
             offer,
         }).sort(
             { [sort]: order }
