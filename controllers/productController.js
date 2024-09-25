@@ -86,7 +86,7 @@ exports.getProducts = async (req, res, next) => {
         const sort = req.query.sort || "createdAt";
         const order = req.query.order || "desc";
 
-        const products = await Recipe.find({
+        const products = await Product.find({
             modelName: { $regex: searchTerm, $options: 'i' },
             brand: { $regex: searchTerm, $options: 'i' },
             offer,
