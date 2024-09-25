@@ -25,3 +25,22 @@ exports.deleteProduct = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.updateProduct = async (req, res, next) => {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(errorHandler(404, "Product not found!"));
+    }
+
+    try {
+        const updateProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        res.status(200).json(updateProduct);
+    } catch (error) {
+        next(error);
+    }
+}
