@@ -56,6 +56,10 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    imageUrls: {
+        type: Array,
+        required: true,
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);
