@@ -45,3 +45,20 @@ exports.allUsers = async (req, res, next) => {
         users,
     });
 }
+
+
+//Delete user for admin
+exports.eraseUser = async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    try {
+        if (!user) {
+            return next(errorHandler(404, "User not found"))
+        }
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie("access_token");
+        res.status(200).json("User has been deleted");
+    } catch (error) {
+        next(error);
+    }
+}
