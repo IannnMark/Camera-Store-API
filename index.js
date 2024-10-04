@@ -4,7 +4,9 @@ const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
 const cookieParser = require("cookie-parser");
+const order = require("./models/order");
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ app.listen(3000, () => {
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
 
 
 //middleware to handle possible errors
