@@ -46,7 +46,7 @@ const orderSchema = mongoose.Schema({
         default: "Pending",
     },
     screenShot: {
-        type: [String],
+        type: Array,
     },
     referenceNumber: {
         type: String,
