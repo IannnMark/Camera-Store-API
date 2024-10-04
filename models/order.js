@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const orderSchema = mongoose.Schema.create({
+const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -46,11 +46,10 @@ const orderSchema = mongoose.Schema.create({
         default: "Pending",
     },
     screenShot: {
-        type: Array,
-        required: true,
+        type: [String],
     },
     referenceNumber: {
-        type: Number,
+        type: String,
     },
 
 
