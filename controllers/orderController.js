@@ -4,6 +4,7 @@ const User = require("../models/user");
 
 
 exports.newOrder = async (req, res, next) => {
+
     const { orderItems, paymentInfo, itemsPrice, totalPrice, screenshot, referenceNumber } = req.body;
 
     if (!orderItems || !paymentInfo || !itemsPrice || !totalPrice) {
@@ -21,7 +22,7 @@ exports.newOrder = async (req, res, next) => {
             totalPrice,
             screenshot,
             referenceNumber,
-            user: req.user._id,
+            user: req.user.id,
         })
         res.status(200).json({
             success: true,
