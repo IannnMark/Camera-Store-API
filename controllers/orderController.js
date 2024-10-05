@@ -66,3 +66,23 @@ exports.myOrders = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.allOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.find().populate("user", ["username"]);
+
+        let totalAmount = 0;
+
+        orders.forEach((order) => {
+            totalAmount += order.totalPrice;
+        });
+
+        res.status(200).json({
+            success: true,
+            totalAmount,
+            orders,
+        })
+    } catch (error) {
+        next(error);
+    }
+}
