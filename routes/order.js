@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/order/new", verifyToken, newOrder);
 router.get("/order/:id", verifyToken, getSingleOrder);
-router.get("/orders/me", verifyToken, myOrders);
+router.get("/orders/me", verifyToken, myOrders)
 
 
 module.exports = router;
