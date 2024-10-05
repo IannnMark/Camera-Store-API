@@ -50,3 +50,19 @@ exports.getSingleOrder = async (req, res, next) => {
         next(error);
     }
 }
+
+
+
+exports.myOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.findById({ user: req.user.id });
+
+        res.status(200).json({
+            success: true,
+
+            orders,
+        })
+    } catch (error) {
+        next(error);
+    }
+}
