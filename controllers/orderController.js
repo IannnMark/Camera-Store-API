@@ -55,7 +55,7 @@ exports.getSingleOrder = async (req, res, next) => {
 
 exports.myOrders = async (req, res, next) => {
     try {
-        const orders = await Order.findById({ user: req.user.id });
+        const orders = await Order.find({ user: req.user.id });
 
         res.status(200).json({
             success: true,
