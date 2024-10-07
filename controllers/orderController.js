@@ -86,3 +86,54 @@ exports.allOrders = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.updateOrder = async (req, res, next) => {
+    try {
+        const order = await Order.findById(req.params.id);
+
+        // Check if the order exists
+        if (!order) {
+            return next(errorHandler(404, "Order not found!"));
+        }
+
+        // Check if the order is already received
+        if (order.orderStatus === "Received") {
+            return next(errorHandler(400, "This order is already received"));
+        }
+
+        // Check the new status from the request body
+        const newStatus = req.body.status;
+
+        // If the new status is "Received", update stock for each order item
+        if (newStatus === "Received") {
+            await Promise.all(order.orderItems.map(async (item) => {
+                console.log("Updating stock for product ID:", item.product);
+                const product = await Product.findById(item.product);
+
+                // Check if the product exists
+                if (!product) {
+                    console.warn(`Product with ID ${item.product} not found. Skipping stock update.`);
+                    return; // Skip updating stock if the product is not found
+                }
+
+                // Update the stock
+                product.stock = product.stock - item.quantity;
+                await product.save({ validateBeforeSave: false });
+            }));
+        }
+
+        // Update the order status
+        order.orderStatus = newStatus;
+
+        // Save the updated order
+        const updatedOrder = await order.save();
+
+        res.status(200).json({
+            success: true,
+            order: updatedOrder // Return the updated order details
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
