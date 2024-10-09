@@ -19,6 +19,14 @@ const orderSchema = mongoose.Schema({
             image: {
                 type: String,
             },
+            regularPrice: {
+                type: Number,
+                min: 0,
+            },
+            discountPrice: {
+                type: Number,
+                min: 0,
+            },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
@@ -38,6 +46,7 @@ const orderSchema = mongoose.Schema({
     },
     totalPrice: {
         type: Number,
+        required: true,
         default: 0.0,
     },
     orderStatus: {
