@@ -6,7 +6,7 @@ const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 const cookieParser = require("cookie-parser");
-const order = require("./models/order");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -25,6 +25,21 @@ app.listen(3000, () => {
     console.log("Server is listening on port 3000");
 
 });
+
+
+const allowedOrigins = ['https://camera-store-client.vercel.app/'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
+
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
