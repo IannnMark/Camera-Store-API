@@ -21,10 +21,11 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
-
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 });
+
 
 
 const allowedOrigins = ['https://camera-store-client.vercel.app/'];
