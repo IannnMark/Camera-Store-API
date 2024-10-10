@@ -28,7 +28,7 @@ app.listen(port, () => {
 
 
 
-const allowedOrigins = ['https://camera-store-client.vercel.app/'];
+const allowedOrigins = ['https://camera-store-client.vercel.app'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -39,6 +39,7 @@ app.use(cors({
     },
     credentials: true,
 }));
+
 
 
 
