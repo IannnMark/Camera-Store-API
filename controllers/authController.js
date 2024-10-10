@@ -25,12 +25,19 @@ exports.signIn = async (req, res, next) => {
         if (!validUser) return next(errorHandler(404, "User not found"));
         const validPassword = bcryptjs.compareSync(password, validUser.password);
         if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
-        const token = jwt.sign({ id: validUser._id, role: user.role }, process.env.JWT_SECRET)
+        const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET, {
+            expiresIn: '1d', // Example token expiry of 1 day
+        });
 
         //destructuring ng password para hindi makita kapag tinest sa backend
         const { password: pass, ...rest } = validUser._doc;
         res
-            .cookie('access_token', token, { httpOnly: true })
+            .cookie('access_token', token, {
+                httpOnly: true, // Prevent access from client-side JavaScript
+                secure: process.env.NODE_ENV === 'production', // Use 'secure' in production (HTTPS only)
+                sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Allow cross-origin requests in production
+                maxAge: 24 * 60 * 60 * 1000, // Set cookie to expire in 1 day
+            })
             .status(200)
             .json(rest);
     } catch (error) {
