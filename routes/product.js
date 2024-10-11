@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct, getProducts, getProductsByBrands } = require("../controllers/productController");
+const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct, getProducts, getProductsByBrands, getBrand } = require("../controllers/productController");
 const { verifyToken, authorizeRoles } = require("../utils/verifyUser");
 const router = express.Router();
 
@@ -11,5 +11,6 @@ router.get("/admin/products", verifyToken, authorizeRoles("admin"), getAdminProd
 router.get("/get/:id", getProduct);
 router.get("/get", getProducts);
 router.get("/brands", getProductsByBrands);
+router.get("/brand", getBrand);
 
 module.exports = router;
