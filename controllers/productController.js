@@ -135,7 +135,7 @@ exports.getBrand = async (req, res, next) => {
 
         let filter = {};
         if (brand) {
-            filter.brand = brand;
+            filter.brand = { $regex: new RegExp(brand, 'i') };
         }
 
         const products = await Product.find(filter);
