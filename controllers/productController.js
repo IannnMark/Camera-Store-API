@@ -127,3 +127,20 @@ exports.getProductsByBrands = async (req, res, next) => {
         next(error);
     }
 };
+
+
+exports.getBrand = async (req, res, next) => {
+    try {
+        const { brand } = req.query;
+
+        let filter = {};
+        if (brand) {
+            filter.brand = brand;
+        }
+
+        const products = await Product.find(filter);
+        res.status(200).json(products);
+    } catch (error) {
+        next(error)
+    }
+}
