@@ -101,3 +101,29 @@ exports.getProducts = async (req, res, next) => {
         next(error);
     }
 }
+
+
+
+exports.getProductsByBrands = async (req, res, next) => {
+    try {
+        // Fetch products with distinct brands
+        const brands = await Product.aggregate([
+            {
+                $group: {
+                    _id: "$brand",
+                    products: {
+                        $push: {
+                            modelName: "$modelName",
+                            description: "$description",
+                            imageUrls: "$imageUrls",
+                        },
+                    },
+                },
+            },
+        ]);
+
+        res.status(200).json(brands);
+    } catch (error) {
+        next(error);
+    }
+};
