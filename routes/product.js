@@ -11,6 +11,6 @@ router.get("/admin/products", verifyToken, authorizeRoles("admin"), getAdminProd
 router.get("/get/:id", getProduct);
 router.get("/get", getProducts);
 router.get("/brands", getProductsByBrands);
-router.get("/brand", getBrand);
+router.get("/brand/:id", getBrand);
 
 module.exports = router;
