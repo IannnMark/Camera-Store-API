@@ -20,7 +20,6 @@ exports.signIn = async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email: req.body.email });
         const validUser = await User.findOne({ email });
         if (!validUser) return next(errorHandler(404, "User not found"));
         const validPassword = bcryptjs.compareSync(password, validUser.password);
@@ -34,8 +33,8 @@ exports.signIn = async (req, res, next) => {
         res
             .cookie('access_token', token, {
                 httpOnly: true, // Prevent access from client-side JavaScript
-                secure: process.env.NODE_ENV === 'production', // Use 'secure' in production (HTTPS only)
-                sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Allow cross-origin requests in production
+                secure: true,
+                sameSite: 'None',
                 maxAge: 24 * 60 * 60 * 1000, // Set cookie to expire in 1 day
             })
             .status(200)
