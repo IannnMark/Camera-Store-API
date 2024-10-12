@@ -32,9 +32,9 @@ exports.signIn = async (req, res, next) => {
         const { password: pass, ...rest } = validUser._doc;
         res
             .cookie('access_token', token, {
-                httpOnly: true, // Prevent access from client-side JavaScript
-                secure: true,
-                sameSite: 'None',
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // Use secure only in production
+                sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Cross-origin settings
                 maxAge: 24 * 60 * 60 * 1000, // Set cookie to expire in 1 day
             })
             .status(200)
