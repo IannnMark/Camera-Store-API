@@ -186,20 +186,6 @@ exports.restoreProduct = async (req, res, next) => {
     }
 }
 
-exports.getAdminProducts = async (req, res, next) => {
-    try {
-        const products = await Product.find({ isDeleted: false });
-
-        res.status(200).json({
-            success: true,
-
-            products,
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-
 exports.getAdminSoftDeleteProducts = async (req, res, next) => {
     try {
         const products = await Product.find({ isDeleted: true });
