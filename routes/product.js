@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct, getProducts, getProductsByBrands, getBrand } = require("../controllers/productController");
+const { createProduct, deleteProduct, updateProduct, getAdminProducts, getProduct, getProducts, getProductsByBrands, getBrand, softDeleteProduct } = require("../controllers/productController");
 const { verifyToken, authorizeRoles } = require("../utils/verifyUser");
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.get("/get/:id", getProduct);
 router.get("/get", getProducts);
 router.get("/brands", getProductsByBrands);
 router.get("/brand", getBrand);
+router.delete("/admin/product/soft-delete/:id", verifyToken, authorizeRoles("admin"), softDeleteProduct);
 
 module.exports = router;
