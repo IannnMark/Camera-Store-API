@@ -56,6 +56,9 @@ const productSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
+
+    isDeleted: { type: Boolean, default: false },
+    deleteAt: { type: Date, default: null },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);
