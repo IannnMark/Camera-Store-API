@@ -47,7 +47,7 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.getAdminProducts = async (req, res, next) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ isDeleted: false });
 
         res.status(200).json({
             success: true,
@@ -142,5 +142,27 @@ exports.getBrand = async (req, res, next) => {
         res.status(200).json(products);
     } catch (error) {
         next(error)
+    }
+}
+
+
+exports.softDeleteProduct = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findByIdAndUpdate(
+            id,
+            { isDeleted: true, deleteAt: Date() },
+            { new: true }
+        );
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.status(200).json("Product soft-deleted successfully");
+
+    } catch (error) {
+        next(error);
     }
 }
