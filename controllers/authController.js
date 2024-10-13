@@ -25,7 +25,7 @@ exports.signIn = async (req, res, next) => {
         const validPassword = bcryptjs.compareSync(password, validUser.password);
         if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
         const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET, {
-            expiresIn: '1d', // Example token expiry of 1 day
+            expiresIn: '1d',
         });
 
         //destructuring ng password para hindi makita kapag tinest sa backend
