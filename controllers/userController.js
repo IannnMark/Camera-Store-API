@@ -62,7 +62,6 @@ exports.eraseUser = async (req, res, next) => {
     }
 }
 
-
 exports.softDeleteUser = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -77,6 +76,25 @@ exports.softDeleteUser = async (req, res, next) => {
         }
 
         res.status(200).json("User has been deleted");
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.restoreUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const user = await User.findByIdAndUpdate(
+            id,
+            { isDeleted: false, deletedAt: null },
+            { new: true }
+        );
+        if (!user) {
+            return next(errorHandler(404, "User not found"));
+        }
+
+        res.status(200).json("User successfully restored");
     } catch (error) {
         next(error);
     }
