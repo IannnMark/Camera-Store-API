@@ -61,3 +61,23 @@ exports.eraseUser = async (req, res, next) => {
         next(error);
     }
 }
+
+
+exports.softDeleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const user = await User.findByIdAndUpdate(
+            id,
+            { isDeleted: true, deletedAt: Date() },
+            { new: true }
+        );
+        if (!user) {
+            return next(errorHandler(404, "User not found"));
+        }
+
+        res.status(200).json("User has been deleted");
+    } catch (error) {
+        next(error);
+    }
+}
