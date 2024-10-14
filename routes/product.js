@@ -13,7 +13,7 @@ router.get("/get", getProducts);
 router.get("/brands", getProductsByBrands);
 router.get("/brand", getBrand);
 router.delete("/admin/product/soft-delete/:id", verifyToken, authorizeRoles("admin"), softDeleteProduct);
-router.post("/admin/product/restore-product/:id", verifyToken, authorizeRoles("admin"), restoreProduct);
+router.put("/admin/product/restore-product/:id", verifyToken, authorizeRoles("admin"), restoreProduct);
 router.get("/admin/soft-delete-products", verifyToken, authorizeRoles("admin"), getAdminSoftDeleteProducts);
 
 module.exports = router;
