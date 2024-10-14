@@ -80,9 +80,7 @@ exports.google = async (req, res, next) => {
             const { password: pass, ...rest } = newUser._doc;
             res
                 .cookie('access_token', token, {
-                    httpOnly: true,
-                    secure: true,
-                    maxAge: 24 * 60 * 60 * 1000,
+                    httpOnly: true
                 })
                 .status(200)
                 .json(rest)
