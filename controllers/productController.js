@@ -160,7 +160,7 @@ exports.softDeleteProduct = async (req, res, next) => {
             return res.status(404).json({ message: "Product not found" });
         }
 
-        res.status(200).json("Product soft-deleted successfully");
+        res.status(200).json("Product archived successfully");
 
     } catch (error) {
         next(error);
