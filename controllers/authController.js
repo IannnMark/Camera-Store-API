@@ -61,8 +61,8 @@ exports.google = async (req, res, next) => {
             const { password: pass, ...rest } = user._doc;
             res
                 .cookie('access_token', token, {
-                    httpOnly: true,
-                    secure: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
                     maxAge: 24 * 60 * 60 * 1000,
                 })
                 .status(200)
