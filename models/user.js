@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "user",
-    }
+    },
+    isDeleted: { type: Boolean, default: false },
+    deleteAt: { type: Date, default: null },
 }, { timestamps: true })
 
 module.exports = mongoose.model("User", userSchema);
