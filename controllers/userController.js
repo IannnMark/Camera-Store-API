@@ -100,7 +100,7 @@ exports.restoreUser = async (req, res, next) => {
     }
 }
 
-exports.getAdminSoftDeletedProducts = async (req, res, next) => {
+exports.getAdminSoftDeletedUsers = async (req, res, next) => {
     const users = await User.find({ isDeleted: true });
     res.status(200).json({
         success: true,
