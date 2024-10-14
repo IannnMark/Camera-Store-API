@@ -9,7 +9,7 @@ router.delete("/delete/:id", verifyToken, deleteUser);
 router.get("/admin/users", verifyToken, authorizeRoles("admin"), allUsers);
 router.delete("/admin/delete/:id", verifyToken, authorizeRoles("admin"), eraseUser);
 router.delete("/admin/user/soft-delete/:id", verifyToken, authorizeRoles("admin"), softDeleteUser);
-router.put("/admin/product/restore-user/:id", verifyToken, authorizeRoles("admin"), restoreUser);
+router.put("/admin/user/restore-user/:id", verifyToken, authorizeRoles("admin"), restoreUser);
 router.get("/admin/soft-deleted-users", verifyToken, authorizeRoles("admin"), getAdminSoftDeletedUsers);
 
 module.exports = router;
