@@ -39,7 +39,7 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 exports.allUsers = async (req, res, next) => {
-    const users = await User.find();
+    const users = await User.find({ isDeleted: false });
     res.status(200).json({
         success: true,
         users,
