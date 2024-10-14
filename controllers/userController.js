@@ -75,7 +75,7 @@ exports.softDeleteUser = async (req, res, next) => {
             return next(errorHandler(404, "User not found"));
         }
 
-        res.status(200).json("User has been deleted");
+        res.status(200).json("User archived successfully");
     } catch (error) {
         next(error);
     }
