@@ -61,6 +61,9 @@ const orderSchema = mongoose.Schema({
         type: String,
     },
 
+    isDeleted: { type: Boolean, default: false },
+    deleteAt: { type: Date, default: null },
+
 
 }, { timestamps: true })
 
