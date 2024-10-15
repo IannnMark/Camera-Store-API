@@ -172,3 +172,23 @@ exports.softDeleteOrder = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.restoreOrder = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const order = await Order.findByIdAndUpdate(
+            id,
+            { isDeleted: false, deletedAt: null },
+            { new: true }
+        )
+
+        if (!order) {
+            return next(errorHandler(404, "Order not found"));
+        }
+
+        res.status(200).json("Order restored successfully");
+    } catch (error) {
+        next(error);
+    }
+}
