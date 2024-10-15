@@ -69,7 +69,7 @@ exports.myOrders = async (req, res, next) => {
 
 exports.allOrders = async (req, res, next) => {
     try {
-        const orders = await Order.find().populate("user", ["username"]);
+        const orders = await Order.find({ isDeleted: false }).populate("user", ["username"]);
 
         let totalAmount = 0;
 
