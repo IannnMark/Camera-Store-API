@@ -192,3 +192,24 @@ exports.restoreOrder = async (req, res, next) => {
         next(error);
     }
 }
+
+
+exports.getAdminSoftDeletedOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.find({ isDeleted: true }).populate("user", ["username"]);
+
+        let totalAmount = 0;
+
+        orders.forEach((order) => {
+            totalAmount += order.totalPrice;
+        });
+
+        res.status(200).json({
+            success: true,
+            totalAmount,
+            orders,
+        })
+    } catch (error) {
+        next(error);
+    }
+}
