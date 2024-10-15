@@ -152,3 +152,23 @@ exports.deleteOrder = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.softDeleteOrder = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const order = await Order.findByIdAndUpdate(
+            id,
+            { isDeleted: true, deletedAt: Date() },
+            { new: true }
+        );
+
+        if (!order) {
+            return next(errorHandler(404, "Order not found"));
+        }
+
+        res.status(200).json("Order has been archived successfully");
+    } catch (error) {
+        next(error);
+    }
+}
